@@ -89,22 +89,22 @@ def read_csv(file):
 def read_geopandas(file):
     return gpd.read_file(file)
 
-fp2 = '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/India_State_Boundary.shp'
+fp2 = 'India_State_Boundary.shp'
 data2 = read_geopandas(fp2)
 
-waterways_path = '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/waterways.shp'
+waterways_path = 'waterways.shp'
 waterways = read_geopandas(waterways_path)
 
-tif_file = '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/landscan-global-2022-colorized.tif'
+tif_file = 'landscan-global-2022-colorized.tif'
 
 # Load brick kilns data
 brick_kilns_paths = {
-    'All' : '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/combined_file.csv',
-    "Punjab": '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/punjab.csv',
-    "Haryana": '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/haryana.csv',
-    "Bihar": '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/bihar.csv',
-    "Uttar Pradesh": '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/uttar_pradesh.csv',
-    "West Bengal": '/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/west_bengal.csv',
+    'All' : 'combined_file.csv',
+    "Punjab": 'punjab.csv',
+    "Haryana": 'haryana.csv',
+    "Bihar": 'bihar.csv',
+    "Uttar Pradesh": 'uttar_pradesh.csv',
+    "West Bengal": 'west_bengal.csv',
 }
 
 @st.cache_data
@@ -180,13 +180,13 @@ with col2:
 
     brick_kilns['compliant'] = True
     if distance_kilns:
-        bk_kiln_mapping = read_csv(f'/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/brick_kiln_bk_dist/{state}_bk_bk_dist.csv')
+        bk_kiln_mapping = read_csv(f'./brick_kiln_bk_dist/{state}_bk_bk_dist.csv')
         brick_kilns['compliant'] &= bk_kiln_mapping['dist'] >= 1
     if distance_hospitals:
-        bk_hospital_mapping = read_csv(f'/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/brick_kiln_hospital_dist/{state}_bk_hospital_dist.csv')
+        bk_hospital_mapping = read_csv(f'./brick_kiln_hospital_dist/{state}_bk_hospital_dist.csv')
         brick_kilns['compliant'] &= bk_hospital_mapping['distance_km'] >= 0.8
     if distance_water_bodies:
-        bk_river_mapping = read_csv(f'/home/shataxi.dubey/shataxi_work/Monitoring_Brick_Kiln_Compliance/brick_kiln_river_dist/{state}_bk_river_distance.csv')
+        bk_river_mapping = read_csv(f'./brick_kiln_river_dist/{state}_bk_river_distance.csv')
         brick_kilns['compliant'] &= bk_river_mapping['distance'] >= 0.5
 
     # Plotting the results
