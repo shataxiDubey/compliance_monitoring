@@ -1,0 +1,10 @@
+folium
+streamlit==1.33.0
+pandas
+numpy
+rasterio
+scipy
+geopy
+matplotlib
+geopandas==0.10.2
+huggingface-hub
